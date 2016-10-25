@@ -1,4 +1,4 @@
-
+<!-- 
 
 <html>
 <head>
@@ -11,11 +11,11 @@
 	<div class="container" id="main"
 		style="width: 100%; background-color: grey">
 
-<!-- NEED TO ADD ONLY MOBILES DATA ...panels for mobiles only-->
+ NEED TO ADD ONLY MOBILES DATA ...panels for mobiles only
 		<jsp:include page="header.jsp" />
 
 
-		<!--<jsp:include page="carousel.jsp" />-->
+		<jsp:include page="carousel.jsp" />
 
 		<jsp:include page="panel.jsp" />
 
@@ -31,3 +31,4 @@
 </body>
 
 </html>
+ -->

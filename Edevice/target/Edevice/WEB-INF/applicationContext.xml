@@ -16,7 +16,7 @@ http://www.springframework.org/schema/tx/spring-tx.xsd">
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="org.h2.Driver" />
-		<property name="url" value="jdbc:h2:tcp://localhost/~/mdimrandemo" />
+		<property name="url" value="jdbc:h2:tcp://localhost/~/ecommerce" />
 		<property name="username" value="sa" />
 		<property name="password" value="" />
 	</bean>
@@ -46,6 +46,8 @@ http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<!-- dto related beans -->
 	<bean id="productDAO" class="com.niit.Edevice.ProductDAOImpl" />
-
-
+	<!-- dto related beans -->
+	<bean id="categoryDAO" class="com.niit.Edevice.CategoryDAOImpl" />
+     <bean id="r" class="com.niit.Edevice.UserDAOImpl" />
+     <bean id="cartDAO" class="com.niit.Edevice.CartDAOImpl" />
 </beans>

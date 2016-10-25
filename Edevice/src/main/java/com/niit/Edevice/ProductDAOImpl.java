@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 /* Make sure to use spring framework transactional annotation*/
 import org.springframework.transaction.annotation.Transactional;
+import org.hibernate.query.Query;
 
 
 
@@ -38,6 +39,13 @@ public class ProductDAOImpl implements ProductDAO {
 	public void updateProduct(Product product) {
 
 		sessionFactory.getCurrentSession().update(product);
+	}
+	
+	public List<Product> getProductByCategory(String category) {
+		// TODO Auto-generated method stub
+		Query query = sessionFactory.getCurrentSession().createQuery("from Product WHERE category=?");
+		query.setParameter(0, category);
+		return query.list();
 	}
 
 }

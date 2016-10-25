@@ -26,6 +26,8 @@ public class AdminController {
 	@Autowired
 	ProductDAO productDAO;
 
+	
+
 	@RequestMapping(value = "/product")
 	public ModelAndView adminProduct() {
 		ModelAndView mv = new ModelAndView("adminProduct");
@@ -33,6 +35,7 @@ public class AdminController {
 		mv.addObject("product", new Product());
 		return mv;
 	}
+	
 
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public String insertdata(@Valid @ModelAttribute("product") Product product, BindingResult results, HttpServletRequest request, Model model) {
@@ -43,43 +46,51 @@ public class AdminController {
 			return ("adminProduct");
 		}
 		if (product.getId() == 0) {
+			
+			productDAO.addProduct(product);
+			
+			
 			// ................................... multi part starts
 			// here....................
 
 			// need to have a transient field of type MultipartFile in Product
 			// model class
 			MultipartFile productImage = product.getFile();
-			// first get the root directory and then append the directory where
-			// you want to store
-			String rootPath = request.getSession().getServletContext().getRealPath("/");
-			String directoryPath = rootPath + "resources\\images\\product";
-			// append the file name
-			String filePath = directoryPath + File.separator + product.getId() + ".jpg";
 
-			// ========================================================
-			// If directory does not exist create the directory
-			if (!Files.exists(Paths.get(directoryPath))) {
-				try {
-					// create the directories recursively
-					Files.createDirectories(Paths.get(directoryPath));
-				}
-
-				catch (IOException ex) {
-					ex.printStackTrace();
-				}
+			// only if file exist upload the image
+			if(productImage!=null && productImage.getSize() > 0) {
+					// first get the root directory and then append the directory where
+					// you want to store
+					String rootPath = request.getSession().getServletContext().getRealPath("/");
+					String directoryPath = rootPath + "resources\\images\\product";
+					// append the file name
+					String filePath = directoryPath + File.separator + product.getId() + ".jpg";
+	
+					// ========================================================
+					// If directory does not exist create the directory
+					if (!Files.exists(Paths.get(directoryPath))) {
+						try {
+							// create the directories recursively
+							Files.createDirectories(Paths.get(directoryPath));
+						}
+	
+						catch (IOException ex) {
+							ex.printStackTrace();
+						}
+					}
+					// =======================================================
+					// transfer the file
+	
+					try {
+						productImage.transferTo(new File(filePath));
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+	
+					// ................................... ends
+					// here..................................				
 			}
-			// =======================================================
-			// transfer the file
-
-			try {
-				productImage.transferTo(new File(filePath));
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-
-			// ................................... ends
-			// here..................................
-			productDAO.addProduct(product);
+			
 		} else {
 			productDAO.updateProduct(product);
 		}

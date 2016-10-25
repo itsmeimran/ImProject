@@ -1,14 +1,14 @@
-var app = angular
+/*var app = angular
         .module("myModule", [])
         .controller("myController", function ($scope, $http) {
 
-            $http.get("/mdFrontEnd/product/all")
+            $http.get("/Edevice/product/viewall")
                  .then(function (response) {
                      $scope.pro = response.data;
                  });
         
 
-/*angular.module('myApp', []).controller('namesCtrl', function($scope) {
+////angular.module('myApp', []).controller('namesCtrl', function($scope) {
     $scope.names = [
         {sno:'1',name:'Jani',brand:'lg',categrory:'mobile'},
         {sno:'2',name:'Carl',brand:'lg',categrory:'mobile'},
@@ -28,7 +28,21 @@ var app = angular
         {sno:'16',name:'Birgit',brand:'samsung',categrory:'mobile'},
         {sno:'17',name:'Mary',brand:'samsung',categrory:'mobile'},
         {sno:'18',name:'Kai',brand:'samsung',categrory:'mobile'}
-        ];*/
+        ];///////////
+    $scope.orderByMe = function(x) {
+        $scope.myOrderBy = x;
+    }
+}); 
+*/
+
+
+
+var app = angular.module('myApp', []);
+app.controller('productCtrl', function($scope, $http) {
+  $http.get("/Edevice/admin/product").then(function (response) {
+      $scope.myData = response.data;
+      
+  });
     $scope.orderByMe = function(x) {
         $scope.myOrderBy = x;
     }

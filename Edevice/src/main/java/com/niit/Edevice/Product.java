@@ -18,6 +18,7 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	//@NotEmpty(message="required")
 	private String name;
 	private String category;
 	private String supplier;
